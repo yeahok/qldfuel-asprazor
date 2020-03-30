@@ -1,0 +1,27 @@
+﻿@page "{id:int?}"
+@model qldfuelanalyse.Pages.Sites.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <p>
+        @Html.DisplayFor(model => model.Site.SiteId)
+    </p>
+    <p>
+        @Html.DisplayFor(model => model.Site.SiteName)
+    </p>
+    <p>
+        @Html.DisplayFor(model => model.Site.SiteSuburb)
+    </p>
+    <p>
+        @Html.DisplayFor(model => model.Site.SitePostCode)
+    </p>
+</div>
+<div>
+    <a asp-page="./Index">Back to Site List</a>
+</div>
