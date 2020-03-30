@@ -1,0 +1,44 @@
+﻿@page
+@model qldfuelanalyse.Pages.Sites.IndexModel
+
+@{
+    ViewData["Title"] = "Sites";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.sites.First().SiteName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sites.First().SiteBrand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.sites.First().SiteSuburb)
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.sites)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SiteName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SiteBrand)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SiteSuburb)
+                </td>
+                <td>
+                    <a asp-page="./Details" asp-route-id="@item.SiteId">Details</a> |
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
