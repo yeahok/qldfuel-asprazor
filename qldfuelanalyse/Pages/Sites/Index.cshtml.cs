@@ -15,12 +15,19 @@ namespace qldfuelanalyse.Pages.Sites
         static HttpClient client = new HttpClient();
         public List<Site> sites { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string PageNum { get; set; }
+
         public async Task OnGet()
         {
+            if (string.IsNullOrEmpty(PageNum))
+            {
+                PageNum = "1";
+            }
             HttpResponseMessage response = await client.GetAsync(
-                "https://localhost:44338/api/sites");
+                string.Format("https://localhost:44338/api/sites/?page={0}", PageNum));
             sites = JsonConvert.DeserializeObject<List<Site>>(
-                await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync());            
         }
     }
 }
