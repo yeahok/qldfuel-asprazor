@@ -13,13 +13,13 @@ namespace qldfuelanalyse.Pages.Sites
     public class DetailsModel : PageModel
     {
         static HttpClient client = new HttpClient();
-        public Site Site { get; set; }
+        public SitesObj SiteObj { get; set; }
 
         public async Task OnGet(int? id)
         {
             HttpResponseMessage response = await client.GetAsync(
                 String.Format("https://localhost:44338/api/sites/{0}", id));
-            Site = JsonConvert.DeserializeObject<Site>(
+            SiteObj = JsonConvert.DeserializeObject<SitesObj>(
                 await response.Content.ReadAsStringAsync());
         }
     }
