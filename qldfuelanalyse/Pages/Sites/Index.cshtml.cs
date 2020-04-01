@@ -13,10 +13,12 @@ namespace qldfuelanalyse.Pages.Sites
     public class IndexModel : PageModel
     {
         static HttpClient client = new HttpClient();
-        public List<Site> sites { get; set; }
+        public SitesObj SitesObj { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string PageNum { get; set; }
+
+        public string RowCount { get; set; }
 
         public async Task OnGet()
         {
@@ -26,8 +28,8 @@ namespace qldfuelanalyse.Pages.Sites
             }
             HttpResponseMessage response = await client.GetAsync(
                 string.Format("https://localhost:44338/api/sites/?page={0}", PageNum));
-            sites = JsonConvert.DeserializeObject<List<Site>>(
-                await response.Content.ReadAsStringAsync());            
+            SitesObj = JsonConvert.DeserializeObject<SitesObj> (
+                await response.Content.ReadAsStringAsync());
         }
     }
 }

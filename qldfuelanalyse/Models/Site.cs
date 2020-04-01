@@ -18,4 +18,22 @@ namespace qldfuelanalyse.Models
         public decimal? SiteLongitude { get; set; }
 
     }
+
+    public class SitesObj
+    {
+        public SitesObj()
+        {
+            Sites = new List<Site>();
+            QueryInfo = new QueryInfo();
+        }
+
+        public List<Site> Sites { get; set; }
+
+        public QueryInfo QueryInfo { get; set; }
+    }
+
+    public partial class QueryInfo
+    {
+        public int RowCount { get; set; }
+    }
 }

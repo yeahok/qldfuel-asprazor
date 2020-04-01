@@ -11,18 +11,18 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.sites.First().SiteName)
+                @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.sites.First().SiteBrand)
+                @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteBrand)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.sites.First().SiteSuburb)
+                @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteSuburb)
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.sites)
+        @foreach (var item in Model.SitesObj.Sites)
         {
             <tr>
                 <td>
