@@ -18,8 +18,6 @@ namespace qldfuelanalyse.Pages.Sites
         [BindProperty(SupportsGet = true)]
         public string PageNum { get; set; }
 
-        public string RowCount { get; set; }
-
         public async Task OnGet()
         {
             if (string.IsNullOrEmpty(PageNum))
@@ -29,7 +27,7 @@ namespace qldfuelanalyse.Pages.Sites
             HttpResponseMessage response = await client.GetAsync(
                 string.Format("https://localhost:44338/api/sites/?page={0}", PageNum));
             SitesObj = JsonConvert.DeserializeObject<SitesObj> (
-                await response.Content.ReadAsStringAsync());
+                await response.Content.ReadAsStringAsync());            
         }
     }
 }

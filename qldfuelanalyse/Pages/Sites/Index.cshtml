@@ -41,3 +41,16 @@
         }
     </tbody>
 </table>
+@{int PerPage = 10;}
+@{int PageNum = int.Parse(Model.PageNum);}
+@*this doesn't look very good*@
+@{int TotalPages = (int)Math.Ceiling((double)Model.SitesObj.QueryInfo.RowCount / (double)PerPage);}
+@if (PageNum > 1)
+{
+    <a asp-page="/Sites/index" asp-route-PageNum="@(PageNum - 1 )">Previous Page</a>
+}
+
+@if (PageNum < TotalPages)
+{
+    <a asp-page="/Sites/index" asp-route-PageNum="@(PageNum + 1 )">Next Page</a>
+}
