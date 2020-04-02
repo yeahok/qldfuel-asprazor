@@ -1,4 +1,7 @@
-﻿function create_single_price_graph(url, graphTitle, divId) {
+﻿function create_single_price_graph(baseUrl, fuelType, siteName, divId) {
+    let url = `${baseUrl}?fueltype=${fuelType}`;
+    let graphTitle = `${fuelType} Price vs Time (${siteName})`;
+
     fetch(url)
     .then(
         response => response.json()
@@ -31,4 +34,15 @@
         };
         vegaEmbed("#"+divId, vlSpec);
     });
+}
+
+//set up buttons to change graph
+var btns = document.getElementsByClassName("fuel-type-btn")
+for (i = 0; i < btns.length; i++) {
+    if (btns[i].dataset.apiurl) {
+        let apiUrl = btns[i].dataset.apiurl;
+        btns[i].addEventListener("click",
+            create_single_price_graph.bind(null, apiUrl, btns[i].id, btns[i].dataset.sitename, "vegagraph1")
+        );
+    }
 }

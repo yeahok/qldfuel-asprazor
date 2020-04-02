@@ -5,17 +5,21 @@
     ViewData["Title"] = "Details";
 }
 
+@{string basePriceUrl = "https://localhost:44338/api/prices/" + Model.SitesObj.Sites.First().SiteId.ToString();
+    string fuelType = Model.SitesObj.QueryInfo.FuelTypes.First();
+    string siteName = Model.SitesObj.Sites.First().SiteName;
+}
+
 @section Scripts
 {
     <script src="https://cdn.jsdelivr.net/npm/vega@5.10.1"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.9.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.5.2"></script>
     <script src="~/js/graphs.js"></script>
-    @{string priceUrl = String.Format("https://localhost:44338/api/prices/{0}/?fueltype={1}"
-                                          , Model.SitesObj.Sites.First().SiteId, Model.SitesObj.QueryInfo.FuelTypes.First());}
-    @{string graphTitle = String.Format("{0} Fuel Price vs Date ({1})"
-                                , Model.SitesObj.QueryInfo.FuelTypes.First(), Model.SitesObj.Sites.First().SiteName);}
-    <script>create_single_price_graph("@priceUrl", "@graphTitle", "vegagraph1")</script>
+
+    <script>
+    create_single_price_graph("@basePriceUrl", "@fuelType", "@siteName", "vegagraph1");
+    </script>
 }
 
 <h2>Details</h2>
@@ -35,5 +39,24 @@
         @Html.DisplayFor(model => model.SitesObj.Sites.First().SitePostCode)
     </p>
     <div id="vegagraph1" class="container"></div>
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        @{bool first = true;}
+        @foreach (var item in Model.SitesObj.QueryInfo.FuelTypes)
+        {
+            @if (first)
+            {
+                <label class="btn btn-secondary fuel-type-btn active" id="@item" data-sitename="@siteName" data-apiUrl="@basePriceUrl">
+                    <input type="radio" name="options" checked> @item
+                </label>
+                first = false;
+            }
+            else
+            {
+                <label class="btn btn-secondary fuel-type-btn" id="@item" data-sitename="@siteName" data-apiUrl="@basePriceUrl">
+                    <input type="radio" name="options"> @item
+                </label>
+            }
+        }
+    </div>
     <a asp-page="./Index">Back to Site List</a>
 </div>
