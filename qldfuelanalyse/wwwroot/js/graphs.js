@@ -22,8 +22,7 @@
                 y: {
                     field: 'price',
                     type: 'quantitative',
-                    axis: { title: 'Price' },
-                    scale: { domain: [1, 2] }
+                    axis: { title: 'Price' }
                 },
                 x: {
                     field: 'transactionDateutc',
