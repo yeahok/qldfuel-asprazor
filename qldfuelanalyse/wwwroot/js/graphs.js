@@ -15,7 +15,7 @@
                 values: data.map(function (element) { element['price'] /= 1000; return element })
             },
             mark: {
-                type: 'point',
+                type: 'line',
                 clip: 'true'
             },
             encoding: {
