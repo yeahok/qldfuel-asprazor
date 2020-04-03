@@ -18,14 +18,23 @@ namespace qldfuelanalyse.Pages.Sites
         [BindProperty(SupportsGet = true)]
         public string PageNum { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string Search { get; set; }
+
         public async Task OnGet()
         {
             if (string.IsNullOrEmpty(PageNum))
             {
                 PageNum = "1";
             }
+            string searchQuery = "";
+            if (!string.IsNullOrEmpty(Search))
+            {
+                searchQuery = string.Format("&search={0}", Search);
+            }
+            Console.WriteLine(searchQuery);
             HttpResponseMessage response = await client.GetAsync(
-                string.Format("https://localhost:44338/api/sites/?page={0}", PageNum));
+                string.Format("https://localhost:44338/api/sites/?page={0}{1}", PageNum, searchQuery));
             SitesObj = JsonConvert.DeserializeObject<SitesObj> (
                 await response.Content.ReadAsStringAsync());            
         }
