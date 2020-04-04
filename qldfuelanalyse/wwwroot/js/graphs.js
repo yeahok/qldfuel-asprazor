@@ -35,6 +35,17 @@
     });
 }
 
+//set up leaflet map
+var sitelat = document.getElementById("mapid").dataset.lat;
+var sitelong = document.getElementById("mapid").dataset.long;
+var mymap = L.map('mapid').setView([sitelat, sitelong], 13);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(mymap);
+L.marker([sitelat, sitelong]).addTo(mymap)
+    .bindPopup(document.getElementById("mapid").dataset.sitename);
+
+
 //set up buttons to change graph
 var btns = document.getElementsByClassName("fuel-type-btn")
 for (i = 0; i < btns.length; i++) {
