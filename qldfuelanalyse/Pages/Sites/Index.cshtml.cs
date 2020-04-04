@@ -7,11 +7,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using qldfuelanalyse.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace qldfuelanalyse.Pages.Sites
 {
     public class IndexModel : PageModel
     {
+        public string FuelApiBaseUrl { get; set; }
+        public IndexModel(IConfiguration configuration)
+        {
+            FuelApiBaseUrl = configuration.GetConnectionString("qldfuel-aspwebapiUrl");
+        }
+
         static HttpClient client = new HttpClient();
         public SitesObj SitesObj { get; set; }
 
@@ -34,9 +41,9 @@ namespace qldfuelanalyse.Pages.Sites
             }
             Console.WriteLine(searchQuery);
             HttpResponseMessage response = await client.GetAsync(
-                string.Format("https://localhost:44338/api/sites/?page={0}{1}", PageNum, searchQuery));
+                string.Format("{0}api/sites/?page={1}{2}", FuelApiBaseUrl, PageNum, searchQuery));
             SitesObj = JsonConvert.DeserializeObject<SitesObj> (
-                await response.Content.ReadAsStringAsync());            
+                await response.Content.ReadAsStringAsync());
         }
     }
 }

@@ -5,7 +5,7 @@
     ViewData["Title"] = "Details";
 }
 
-@{string basePriceUrl = "https://localhost:44338/api/prices/" + Model.SitesObj.Sites.First().SiteId.ToString();
+@{string basePriceUrl = String.Format("{0}api/prices/{1}", Model.FuelApiBaseUrl, Model.SitesObj.Sites.First().SiteId.ToString());
     string fuelType = Model.SitesObj.QueryInfo.FuelTypes.First();
     string siteName = Model.SitesObj.Sites.First().SiteName;
 }
