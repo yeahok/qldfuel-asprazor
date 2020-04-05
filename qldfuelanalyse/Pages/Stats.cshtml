@@ -4,5 +4,26 @@
     ViewData["Title"] = "Stats";
 }
 
+@{string basePriceUrl = String.Format("{0}api/prices/", Model.FuelApiBaseUrl);
+    string fuelType = "e10";
+}
+
+@section Scripts
+{
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.10.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.9.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.5.2"></script>
+
+    <script src="~/js/statspage.js"></script>
+    <script>
+        create_all_price_graph("@basePriceUrl", "@fuelType", "vegagraph1");
+    </script>
+}
+
 <h1>Stats</h1>
+
+<div>
+    <hr />
+    <div id="vegagraph1" class="container"></div>
+</div>
 
