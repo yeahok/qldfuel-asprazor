@@ -35,3 +35,14 @@
             vegaEmbed("#" + divId, vlSpec);
         });
 }
+
+//set up buttons to change graph
+var btns = document.getElementsByClassName("fuel-type-btn")
+for (i = 0; i < btns.length; i++) {
+    if (btns[i].dataset.apiurl) {
+        let apiUrl = btns[i].dataset.apiurl;
+        btns[i].addEventListener("click",
+            create_all_price_graph.bind(null, apiUrl, btns[i].id, "vegagraph1")
+        );
+    }
+}

@@ -4,8 +4,17 @@
     ViewData["Title"] = "Stats";
 }
 
-@{string basePriceUrl = String.Format("{0}api/prices/", Model.FuelApiBaseUrl);
-    string fuelType = "e10";
+@{List<string> fuelTypes = new List<string> {
+        "PULP 98 RON",
+  "Premium Diesel",
+  "Unleaded",
+  "Diesel",
+  "e85",
+  "e10",
+  "LPG",
+  "OPAL",
+  "PULP 95/96 RON" };
+    string basePriceUrl = String.Format("{0}api/prices/", Model.FuelApiBaseUrl);
 }
 
 @section Scripts
@@ -16,7 +25,7 @@
 
     <script src="~/js/statspage.js"></script>
     <script>
-        create_all_price_graph("@basePriceUrl", "@fuelType", "vegagraph1");
+        create_all_price_graph("@basePriceUrl", "@fuelTypes.First()", "vegagraph1");
     </script>
 }
 
@@ -25,5 +34,24 @@
 <div>
     <hr />
     <div id="vegagraph1" class="container"></div>
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        @{bool first = true;}
+        @foreach (var item in fuelTypes)
+        {
+            @if (first)
+            {
+                <label class="btn btn-secondary fuel-type-btn active" id="@item" data-apiUrl="@basePriceUrl">
+                    <input type="radio" name="options" checked> @item
+                </label>
+                first = false;
+            }
+            else
+            {
+                <label class="btn btn-secondary fuel-type-btn" id="@item" data-apiUrl="@basePriceUrl">
+                    <input type="radio" name="options"> @item
+                </label>
+            }
+        }
+    </div>
 </div>
 
