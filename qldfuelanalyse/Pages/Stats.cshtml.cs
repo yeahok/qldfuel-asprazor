@@ -10,10 +10,10 @@ namespace qldfuelanalyse.Pages
 {
     public class StatsModel : PageModel
     {
-        public string FuelApiBaseUrl { get; set; }
+        public string FuelApiBaseUrlClient { get; set; }
         public StatsModel(IConfiguration configuration)
         {
-            FuelApiBaseUrl = configuration.GetConnectionString("qldfuel-aspwebapiUrl");
+            FuelApiBaseUrlClient = configuration.GetConnectionString("qldfuel-aspUrl-client");
         }
 
         public void OnGet()

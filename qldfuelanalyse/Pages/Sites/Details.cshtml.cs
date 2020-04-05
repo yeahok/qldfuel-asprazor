@@ -14,9 +14,11 @@ namespace qldfuelanalyse.Pages.Sites
     public class DetailsModel : PageModel
     {
         public string FuelApiBaseUrl { get; set; }
+        public string FuelApiBaseUrlClient { get; set; }
         public DetailsModel(IConfiguration configuration)
         {
-            FuelApiBaseUrl = configuration.GetConnectionString("qldfuel-aspwebapiUrl");
+            FuelApiBaseUrl = configuration.GetConnectionString("qldfuel-aspUrl-server");
+            FuelApiBaseUrlClient = configuration.GetConnectionString("qldfuel-aspUrl-client");
         }
         static HttpClient client = new HttpClient();
         public SitesObj SitesObj { get; set; }
