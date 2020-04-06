@@ -4,6 +4,21 @@
     ViewData["Title"] = "Compare";
 }
 
+@{string basePriceUrl = String.Format("{0}api/prices/", Model.FuelApiBaseUrlClient);
+}
+
+@section Scripts
+{
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.10.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.9.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.5.2"></script>
+
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+            crossorigin=""></script>
+    <script src="~/js/comparepage.js"></script>
+}
+
 <h1>Compare</h1>
 
 <form>
@@ -16,5 +31,6 @@
         <br />
         <button type="button">Generate graph</button>
     </p>
+    <div id="vegagraph1" class="container"></div>
 </form>
 
