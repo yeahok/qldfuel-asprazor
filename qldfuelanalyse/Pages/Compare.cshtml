@@ -24,10 +24,14 @@
 <form>
     <p>
         Site Id 1:
-        <input class="inputSiteId" type="text">
+        <input class="userInputSiteName" data-id="0" type="text">
+        <input class="inputSiteId" type="hidden" />
+        <input class="inputSiteName" type="hidden" />
         <br />
         Site Id 2:
-        <input class="inputSiteId" type="text">
+        <input class="userInputSiteName" data-id="1" type="text">
+        <input class="inputSiteId" type="hidden" />
+        <input class="inputSiteName" type="hidden" />
         <br />
         <button id="generateGraphBtn" data-baseapiurl="@basePriceUrl" type="button">Generate graph</button>
     </p>
