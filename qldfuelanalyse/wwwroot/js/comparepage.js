@@ -1,4 +1,5 @@
-﻿function create_multi_price_graph(baseUrl, inputClass, fuelType, divId) {
+﻿//create comparison graph using information from 'inputClass' fields
+function create_multi_price_graph(baseUrl, inputClass, fuelType, divId) {
     var idFields = document.getElementsByClassName("inputSiteId tt-input");
 
     let urls = [];
@@ -71,11 +72,13 @@
 //set up buttons to change graph
 var generateGraphBtn = document.getElementById("generateGraphBtn");
 
+//bind button to generate comparison graph
 let apiUrl = generateGraphBtn.dataset.baseapiurl;
 console.log(apiUrl);
 generateGraphBtn.addEventListener("click",
     create_multi_price_graph.bind(null, apiUrl, "inputSiteId", "Unleaded", "vegagraph1"));
 
+//create data source for typeahead
 var sites = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -93,6 +96,7 @@ var sites = new Bloodhound({
     }
 });
 
+//create typeahead for text fields
 $('.inputSiteId').typeahead(null, {
     name: 'sites',
     display: 'name',
