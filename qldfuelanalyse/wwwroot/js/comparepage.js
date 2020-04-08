@@ -5,7 +5,13 @@
 
     urls[0] = `${baseUrl}${idFields[0].dataset.siteId}?fueltype=${fuelType}`;
     urls[1] = `${baseUrl}${idFields[1].dataset.siteId}?fueltype=${fuelType}`;
- 
+
+    let titles = [];
+
+    titles[0] = idFields[0].dataset.siteName;
+    titles[1] = idFields[1].dataset.siteName;
+    console.log(titles);
+
     let graphTitle = `${fuelType} Price vs Time`;
     
     Promise.all(urls.map(url =>
@@ -19,6 +25,16 @@
         }
     ).then(function (data) {
         var mergedArray = data[0].concat(data[1]);
+        //this should probably be changed completely
+        for (i = 0; i < mergedArray.length; i++) {
+            for (j = 0; j < titles.length; j++) {
+                if (mergedArray[i].siteId == idFields[j].dataset.siteId) {
+                    mergedArray[i].siteName = titles[j];
+                }                    
+            }
+        }
+
+        console.log(mergedArray);
             var vlSpec = {
                 $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
                 title: graphTitle,
@@ -43,8 +59,8 @@
                         axis: { title: 'Date' }
                     },
                     color: {
-                        field: 'siteId',
-                        type: 'nominal'
+                        field: 'siteName',
+                        type: 'nominal',
                     }
                 }
             };
@@ -83,4 +99,5 @@ $('.inputSiteId').typeahead(null, {
     source: sites
 }).on('typeahead:selected', function (evt, item) {
     evt.currentTarget.dataset.siteId = item.id;
+    evt.currentTarget.dataset.siteName = item.name;
 });
