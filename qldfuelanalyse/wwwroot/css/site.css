@@ -74,3 +74,9 @@ body {
 #mapid {
     height: 400px;
 }
+
+/*Typeahead*/
+.tt-menu {
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
