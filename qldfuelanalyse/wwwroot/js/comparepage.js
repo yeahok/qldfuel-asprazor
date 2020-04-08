@@ -43,7 +43,7 @@ function create_multi_price_graph(baseUrl, inputNameClass, inputIdClass, fuelTyp
                 height: 500,
                 width: 'container',
                 data: {
-                    values: mergedArray
+                    values: mergedArray.map(function (element) { element['price'] /= 1000; return element })
                 },
                 mark: {
                     type: 'line',
