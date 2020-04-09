@@ -5,6 +5,7 @@
 }
 
 @{string basePriceUrl = String.Format("{0}api/prices/", Model.FuelApiBaseUrlClient);
+  string baseSiteUrl = String.Format("{0}api/sites/", Model.FuelApiBaseUrlClient);
 }
 
 @section Scripts
@@ -23,6 +24,7 @@
 
 <form>
     <p>
+        <input id="siteapi" data-basesiteapiurl="@baseSiteUrl" type="hidden" />
         Site Id 1:
         <input class="userInputSiteName" data-id="0" type="text">
         <input class="inputSiteId" type="hidden" />

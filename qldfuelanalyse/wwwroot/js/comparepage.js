@@ -80,11 +80,12 @@ generateGraphBtn.addEventListener("click",
     create_multi_price_graph.bind(null, apiUrl, "inputSiteName", "inputSiteId", "Unleaded", "vegagraph1"));
 
 //create data source for typeahead
+let siteApiUrl = document.getElementById("siteapi").dataset.basesiteapiurl;
 var sites = new Bloodhound({
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
     queryTokenizer: Bloodhound.tokenizers.whitespace,
     remote: {
-        url: 'https://localhost:44338/api/sites?search=%QUERY',
+        url: `${siteApiUrl}?search=%QUERY`,
         wildcard: '%QUERY',
         transform: function (response) {
             return $.map(response.sites, function (site) {
