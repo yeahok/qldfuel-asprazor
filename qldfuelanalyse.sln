@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "qldfuelanalyse", "qldfuelanalyse\qldfuelanalyse.csproj", "{B86B7419-2F2A-4179-BF54-5E1149818B29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "qldfuelanalyse", "qldfuelanalyse\qldfuelanalyse.csproj", "{B86B7419-2F2A-4179-BF54-5E1149818B29}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
