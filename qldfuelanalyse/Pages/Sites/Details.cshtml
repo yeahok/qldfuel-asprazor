@@ -26,22 +26,40 @@
     </script>
 }
 
-<h2>Details</h2>
+<h2>@Html.DisplayFor(model => model.SitesObj.Sites.First().SiteName)</h2>
 
 <div>
     <hr />
-    <p>
-        @Html.DisplayFor(model => model.SitesObj.Sites.First().SiteId)
-    </p>
-    <p>
-        @Html.DisplayFor(model => model.SitesObj.Sites.First().SiteName)
-    </p>
-    <p>
-        @Html.DisplayFor(model => model.SitesObj.Sites.First().SiteSuburb)
-    </p>
-    <p>
-        @Html.DisplayFor(model => model.SitesObj.Sites.First().SitePostCode)
-    </p>
+    <dl class="row">
+        <dt class="col-sm">
+            @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteBrand)
+        </dt>
+        <dd class="col-sm">
+            @Html.DisplayFor(model => model.SitesObj.Sites.First().SiteBrand)
+        </dd>
+
+        <dt class="col-sm">
+            @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SitesAddressLine1)
+        </dt>
+        <dd class="col-sm">
+            @Html.DisplayFor(model => model.SitesObj.Sites.First().SitesAddressLine1)
+        </dd>
+
+        <dt class="col-sm">
+            @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteSuburb)
+        </dt>
+        <dd class="col-sm">
+            @Html.DisplayFor(model => model.SitesObj.Sites.First().SiteSuburb)
+        </dd>
+
+        <dt class="col-sm">
+            @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SitePostCode)
+        </dt>
+        <dd class="col-sm">
+            @Html.DisplayFor(model => model.SitesObj.Sites.First().SitePostCode)
+        </dd>
+    </dl>
+
     <div id="mapid" data-lat="@Model.SitesObj.Sites.First().SiteLatitude" data-long="@Model.SitesObj.Sites.First().SiteLongitude" data-sitename="@siteName"></div>
     <div id="vegagraph1" class="container"></div>
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
