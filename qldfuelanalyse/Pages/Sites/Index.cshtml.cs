@@ -28,6 +28,9 @@ namespace qldfuelanalyse.Pages.Sites
         [BindProperty(SupportsGet = true)]
         public string Search { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string SortBy { get; set; }
+
         public async Task OnGet()
         {
             if (string.IsNullOrEmpty(PageNum))
@@ -39,9 +42,14 @@ namespace qldfuelanalyse.Pages.Sites
             {
                 searchQuery = string.Format("&search={0}", Search);
             }
+            string sortByQuery = "";
+            if (!string.IsNullOrEmpty(SortBy))
+            {
+                searchQuery = string.Format("&sortby={0}", SortBy);
+            }
             Console.WriteLine(searchQuery);
             HttpResponseMessage response = await client.GetAsync(
-                string.Format("{0}api/sites/?page={1}{2}", FuelApiBaseUrl, PageNum, searchQuery));
+                string.Format("{0}api/sites/?page={1}{2}{3}", FuelApiBaseUrl, PageNum, searchQuery, sortByQuery));
             SitesObj = JsonConvert.DeserializeObject<SitesObj> (
                 await response.Content.ReadAsStringAsync());
         }

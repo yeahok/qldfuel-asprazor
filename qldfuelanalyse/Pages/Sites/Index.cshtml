@@ -17,7 +17,9 @@
     <thead>
         <tr>
             <th>
+                <a asp-page="/Sites/index" asp-route-sortby="1">
                 @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteName)
+                </a>                
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteBrand)
