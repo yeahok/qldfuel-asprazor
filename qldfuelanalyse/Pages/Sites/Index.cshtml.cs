@@ -45,7 +45,7 @@ namespace qldfuelanalyse.Pages.Sites
             string sortByQuery = "";
             if (!string.IsNullOrEmpty(SortBy))
             {
-                searchQuery = string.Format("&sortby={0}", SortBy);
+                sortByQuery = string.Format("&sortby={0}", SortBy);
             }
             Console.WriteLine(searchQuery);
             HttpResponseMessage response = await client.GetAsync(
