@@ -7,9 +7,10 @@
 
 <h1>Index</h1>
 <form>
-    <p>Site Name:
-    <input type="text" asp-for="Search" />
-    <input type="submit" value="Search" />
+    <p>
+        Site Name:
+        <input type="text" asp-for="Search" />
+        <input type="submit" value="Search" />
     </p>
 </form>
 <table class="table">
@@ -18,8 +19,8 @@
         <tr>
             <th>
                 <a asp-page="/Sites/index" asp-route-sortby="1" asp-route-search="@Model.Search">
-                @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteName)
-                </a>                
+                    @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteName)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteBrand)
@@ -53,12 +54,20 @@
 @{int PageNum = int.Parse(Model.PageNum);}
 @*this doesn't look very good*@
 @{int TotalPages = (int)Math.Ceiling((double)Model.SitesObj.QueryInfo.RowCount / (double)PerPage);}
-@if (PageNum > 1)
-{
-    <a asp-page="/Sites/index" asp-route-PageNum="@(PageNum - 1 )" asp-route-search="@Model.Search" asp-route-sortby="@Model.SortBy">Previous Page</a>
-}
+<nav>
+    <ul class="pagination">
+        @if (PageNum > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" asp-page="/Sites/index" asp-route-PageNum="@(PageNum - 1 )" asp-route-search="@Model.Search" asp-route-sortby="@Model.SortBy">Previous Page</a>
+            </li>
+        }
 
-@if (PageNum < TotalPages)
-{
-    <a asp-page="/Sites/index" asp-route-PageNum="@(PageNum + 1 )" asp-route-search="@Model.Search" asp-route-sortby="@Model.SortBy">Next Page</a>
-}
+        @if (PageNum < TotalPages)
+        {
+    <li class="page-item">
+        <a class="page-link" asp-page="/Sites/index" asp-route-PageNum="@(PageNum + 1 )" asp-route-search="@Model.Search" asp-route-sortby="@Model.SortBy">Next Page</a>
+    </li>
+                }
+        </ul>
+</nav>
