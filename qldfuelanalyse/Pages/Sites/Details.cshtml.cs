@@ -23,11 +23,18 @@ namespace qldfuelanalyse.Pages.Sites
         static HttpClient client = new HttpClient();
         public SitesObj SitesObj { get; set; }
 
+        public List<Prices> Prices {get; set;} 
+
         public async Task OnGet(int? id)
         {
             HttpResponseMessage response = await client.GetAsync(
                 String.Format("{0}api/sites/{1}", FuelApiBaseUrl, id));
             SitesObj = JsonConvert.DeserializeObject<SitesObj>(
+                await response.Content.ReadAsStringAsync());
+
+            response = await client.GetAsync(
+                String.Format("{0}api/prices/latest/{1}", FuelApiBaseUrl, id));
+            Prices = JsonConvert.DeserializeObject<List<Prices>>(
                 await response.Content.ReadAsStringAsync());
         }
     }

@@ -59,6 +59,19 @@
             @Html.DisplayFor(model => model.SitesObj.Sites.First().SitePostCode)
         </dd>
     </dl>
+    <h3>Latest Prices</h3>
+    <dl class="row">
+        @foreach (var item in Model.Prices)
+        {
+            <dt class="col-sm">
+                 @Html.DisplayFor(modelItem => item.FuelType)
+            </dt>
+            <dd class="col-sm">
+                @{double parameterValue = (double)item.Price / 1000;}
+                @Html.DisplayFor(modelItem => parameterValue)
+            </dd>
+        }
+    </dl>
 
     <div id="mapid" data-lat="@Model.SitesObj.Sites.First().SiteLatitude" data-long="@Model.SitesObj.Sites.First().SiteLongitude" data-sitename="@siteName"></div>
     <div id="vegagraph1" class="container"></div>
