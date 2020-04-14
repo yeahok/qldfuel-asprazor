@@ -31,31 +31,31 @@
 <div>
     <hr />
     <dl class="row">
-        <dt class="col-sm">
+        <dt class="col-sm-6">
             @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteBrand)
         </dt>
-        <dd class="col-sm">
+        <dd class="col-sm-6">
             @Html.DisplayFor(model => model.SitesObj.Sites.First().SiteBrand)
         </dd>
 
-        <dt class="col-sm">
+        <dt class="col-sm-6">
             @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SitesAddressLine1)
         </dt>
-        <dd class="col-sm">
+        <dd class="col-sm-6">
             @Html.DisplayFor(model => model.SitesObj.Sites.First().SitesAddressLine1)
         </dd>
 
-        <dt class="col-sm">
+        <dt class="col-sm-6">
             @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteSuburb)
         </dt>
-        <dd class="col-sm">
+        <dd class="col-sm-6">
             @Html.DisplayFor(model => model.SitesObj.Sites.First().SiteSuburb)
         </dd>
 
-        <dt class="col-sm">
+        <dt class="col-sm-6">
             @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SitePostCode)
         </dt>
-        <dd class="col-sm">
+        <dd class="col-sm-6">
             @Html.DisplayFor(model => model.SitesObj.Sites.First().SitePostCode)
         </dd>
     </dl>
@@ -63,12 +63,17 @@
     <dl class="row">
         @foreach (var item in Model.Prices)
         {
-            <dt class="col-sm">
-                 @Html.DisplayFor(modelItem => item.FuelType)
+            <dt class="col-sm-4">
+                @Html.DisplayFor(modelItem => item.FuelType)
             </dt>
-            <dd class="col-sm">
+            <dd class="col-sm-4">
                 @{double parameterValue = (double)item.Price / 1000;}
+                $
                 @Html.DisplayFor(modelItem => parameterValue)
+            </dd>
+            <dd class="col-sm-4">
+                Recorded on:
+                @Html.DisplayFor(modelItem => item.TransactionDateutc)
             </dd>
         }
     </dl>
