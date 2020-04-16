@@ -5,3 +5,20 @@ var mymap = L.map('mapid').setView([sitelat, sitelong], 8);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(mymap);
+
+let siteApiUrl = document.getElementById("siteapi").dataset.basesiteapiurl;
+
+function AddMarkers(baseUrl, fuelType) {
+    url = `${baseUrl}mapdata?fueltype=${fuelType}`
+    fetch(url)
+        .then(
+            response => response.json()
+        ).then(function (data) {
+            for (let site of data) {
+                L.marker([site.siteLatitude, site.siteLongitude]).addTo(mymap)
+                    .bindPopup(site.siteName)
+            }
+        });
+}
+
+AddMarkers(siteApiUrl, "e85");
