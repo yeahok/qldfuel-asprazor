@@ -16,7 +16,7 @@ function AddMarkers(baseUrl, fuelType) {
         ).then(function (data) {
             for (let site of data) {
                 let price = site.prices[0].price / 1000;
-                var priceIcon = L.divIcon({ html: `<p>${price}</p>` });
+                var priceIcon = L.divIcon({ className: 'pricemarker', html: `${price}` });
                 L.marker([site.siteLatitude, site.siteLongitude], { icon: priceIcon }).addTo(mymap)
                     .bindPopup(site.siteName);
             }
