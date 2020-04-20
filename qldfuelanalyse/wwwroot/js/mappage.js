@@ -8,19 +8,41 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 let siteApiUrl = document.getElementById("siteapi").dataset.basesiteapiurl;
 
+let markerGroup = [];
+
 function AddMarkers(baseUrl, fuelType) {
     url = `${baseUrl}mapdata?fueltype=${fuelType}`
     fetch(url)
         .then(
             response => response.json()
-        ).then(function (data) {
-            for (let site of data) {
-                let price = site.prices[0].price / 1000;
-                var priceIcon = L.divIcon({ className: 'pricemarker', html: `${price}` });
-                L.marker([site.siteLatitude, site.siteLongitude], { icon: priceIcon }).addTo(mymap)
-                    .bindPopup(site.siteName);
-            }
-        });
+    ).then(function (data) {
+        mymap.removeLayer(markerGroup);
+
+        let markers = []; 
+
+        for (let site of data) {
+            let price = site.prices[0].price / 1000;
+            var priceIcon = L.divIcon({ className: 'pricemarker', html: `${price}` });
+            let marker = L.marker([site.siteLatitude, site.siteLongitude], { icon: priceIcon })
+                .bindPopup(site.siteName);
+            markers.push(marker);
+            
+        }
+        markerGroup = L.layerGroup(markers);
+        markerGroup.addTo(mymap);
+    });
 }
 
-AddMarkers(siteApiUrl, "e85");
+//initialise
+AddMarkers(siteApiUrl, "PULP 98 RON");
+
+//set up buttons to change map markers
+var btns = document.getElementsByClassName("fuel-type-btn")
+for (i = 0; i < btns.length; i++) {
+    if (btns[i].dataset.apiurl) {
+        let apiUrl = btns[i].dataset.apiurl;
+        btns[i].addEventListener("click",
+            AddMarkers.bind(null, apiUrl, btns[i].id)
+        );
+    }
+}
