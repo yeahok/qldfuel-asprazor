@@ -24,9 +24,10 @@ function AddMarkers(baseUrl, fuelType) {
             let price = site.prices[0].price / 1000;
             var priceIcon = L.divIcon({ className: 'pricemarker', html: `${price}` });
             let detailsUrl = `${window.location.origin}/Sites/Details/${site.siteId}`;
+            let priceDate = site.prices[0].transactionDateutc;
 
             let marker = L.marker([site.siteLatitude, site.siteLongitude], { icon: priceIcon })
-                .bindPopup(`${site.siteName}<br/><a href=${detailsUrl}>More Details</a>`);
+                .bindPopup(`${site.siteName}<br/>Price recorded on ${priceDate}<br/><a href=${detailsUrl}>More Details</a>`);
             markers.push(marker);
             
         }
