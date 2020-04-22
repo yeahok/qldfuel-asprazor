@@ -70,6 +70,18 @@ function create_multi_price_graph(baseUrl, inputNameClass, inputIdClass, fuelTyp
         });
 }
 
+function getFuelTypes(apiUrl, fieldNo, siteId, className) {
+    let url = `${apiUrl}${siteId}`;
+    let fuelTypeField = document.getElementsByClassName(className)[fieldNo];
+
+    fetch(url)
+        .then(
+            response => response.json()
+        ).then(function (data) {
+            fuelTypeField.value = data.queryInfo.fuelTypes;
+     })
+};
+
 //set up buttons to change graph
 var generateGraphBtn = document.getElementById("generateGraphBtn");
 
@@ -109,4 +121,6 @@ $('.userInputSiteName').typeahead(null, {
     let storeNameFields = document.getElementsByClassName("inputSiteName");
     storeIdFields[fieldNo].value = item.id;
     storeNameFields[fieldNo].value = item.name;
+
+    getFuelTypes(siteApiUrl,fieldNo, item.id, "inputFuelTypes");
 });
