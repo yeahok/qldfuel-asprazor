@@ -124,3 +124,14 @@ $('.userInputSiteName').typeahead(null, {
 
     getFuelTypes(siteApiUrl,fieldNo, item.id, "inputFuelTypes");
 });
+
+//set up buttons to change graphs
+var btns = document.getElementsByClassName("fuel-type-btn")
+for (i = 0; i < btns.length; i++) {
+    if (btns[i].dataset.apiurl) {
+        let apiUrl = btns[i].dataset.apiurl;
+        btns[i].addEventListener("click",
+            create_multi_price_graph.bind(null, apiUrl, "inputSiteName", "inputSiteId", btns[i].id, "vegagraph1")
+        );
+    }
+}
