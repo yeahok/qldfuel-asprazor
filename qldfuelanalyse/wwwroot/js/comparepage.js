@@ -82,6 +82,31 @@ function getFuelTypes(apiUrl, fieldNo, siteId, className) {
      })
 };
 
+function setFuelTypeButtons(className) {
+    console.log("hello");
+    let fuelTypeFields = document.getElementsByClassName(className);
+    console.log(fuelTypeFields);
+    let fuelTypeLists = [];
+    for (let i = 0; i < fuelTypeFields.length; i++) {
+        fuelTypeLists[i] = fuelTypeFields[i].value.split(",");
+        console.log(fuelTypeLists[i]);
+    }
+    //change this later to work for arbitrary length 
+    let intersectFuelList = fuelTypeLists[0].filter(value => fuelTypeLists[1].includes(value));
+    let btns = document.getElementsByClassName("fuel-type-btn")
+
+    for (let i = 0; i < btns.length; i++) {
+        //disable all buttons first
+        btns[i].classList.add("disabled");
+        for (let j = 0; j < intersectFuelList.length; j++) {
+            if (btns[i].id == intersectFuelList[j]) {
+                btns[i].classList.remove("disabled");
+                break;
+            }
+        }
+    }
+}
+
 //set up buttons to change graph
 var generateGraphBtn = document.getElementById("generateGraphBtn");
 
@@ -90,6 +115,9 @@ let apiUrl = generateGraphBtn.dataset.baseapiurl;
 console.log(apiUrl);
 generateGraphBtn.addEventListener("click",
     create_multi_price_graph.bind(null, apiUrl, "inputSiteName", "inputSiteId", "Unleaded", "vegagraph1"));
+generateGraphBtn.addEventListener("click",
+    setFuelTypeButtons.bind(null, "inputFuelTypes")
+);
 
 //create data source for typeahead
 let siteApiUrl = document.getElementById("siteapi").dataset.basesiteapiurl;
