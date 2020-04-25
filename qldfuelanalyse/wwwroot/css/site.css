@@ -87,3 +87,8 @@ body {
     background-color: #fff;
     border: 1px solid #ccc;
 }
+
+/*Workaround to disable bootstrap radio buttons*/
+.btn.disabled {
+    pointer-events: none;
+}
