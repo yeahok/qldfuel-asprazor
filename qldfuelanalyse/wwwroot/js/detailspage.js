@@ -16,7 +16,10 @@
             },
             mark: {
                 type: 'line',
-                clip: 'true'
+                clip: true,
+                point: true,
+                tooltip: true,
+                interpolate: 'step-after'
             },
             encoding: {
                 y: {

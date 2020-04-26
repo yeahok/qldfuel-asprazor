@@ -47,7 +47,10 @@ function create_multi_price_graph(baseUrl, inputNameClass, inputIdClass, fuelTyp
                 },
                 mark: {
                     type: 'line',
-                    clip: 'true'
+                    clip: true,
+                    point: true,
+                    tooltip: true,
+                    interpolate: 'step-after'
                 },
                 encoding: {
                     y: {
