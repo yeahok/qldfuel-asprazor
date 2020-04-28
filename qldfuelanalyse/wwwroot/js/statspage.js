@@ -16,7 +16,8 @@
                 },
                 mark: {
                     type: 'point',
-                    clip: 'true'
+                    clip: true,
+                    tooltip: true
                 },
                 encoding: {
                     y: {
