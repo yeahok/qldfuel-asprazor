@@ -86,6 +86,8 @@ function getFuelTypes(apiUrl, fieldNo, siteId, className) {
 };
 
 function setFuelTypeButtons(className) {
+    document.getElementById("fuel-type-btn-group").removeAttribute("hidden");
+
     console.log("hello");
     let fuelTypeFields = document.getElementsByClassName(className);
     console.log(fuelTypeFields);

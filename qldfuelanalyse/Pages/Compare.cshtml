@@ -51,7 +51,7 @@
         <button id="generateGraphBtn" data-baseapiurl="@basePriceUrl" type="button">Generate graph</button>
     </p>
     <div id="vegagraph1" class="container"></div>
-    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+    <div id="fuel-type-btn-group" class="btn-group btn-group-toggle" data-toggle="buttons" hidden>
         @{bool first = true;}
         @foreach (var item in fuelTypes)
         {
