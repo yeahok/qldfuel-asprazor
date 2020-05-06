@@ -1,7 +1,7 @@
 ﻿//create comparison graph using information from 'inputClass' fields
 function create_multi_price_graph(baseUrl, inputNameClass, inputIdClass, fuelType, divId) {
-    var idFields = document.getElementsByClassName("inputSiteId");
-    var nameFields = document.getElementsByClassName("inputSiteName");
+    var idFields = document.getElementsByClassName(inputIdClass);
+    var nameFields = document.getElementsByClassName(inputNameClass);
 
     let urls = [];
 
