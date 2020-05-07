@@ -1,76 +1,76 @@
 ﻿//create comparison graph using information from 'inputClass' fields
-function create_multi_price_graph(baseUrl, inputNameClass, inputIdClass, fuelType, divId) {
+function generateGraphBtnHandler(baseUrl, inputNameClass, inputIdClass, fuelType, divId) {
     var idFields = document.getElementsByClassName(inputIdClass);
     var nameFields = document.getElementsByClassName(inputNameClass);
 
     let urls = [];
-
-    urls[0] = `${baseUrl}${idFields[0].value}?fueltype=${fuelType}`;
-    urls[1] = `${baseUrl}${idFields[1].value}?fueltype=${fuelType}`;
-
     let titles = [];
 
-    titles[0] = nameFields[0].value;
-    titles[1] = nameFields[1].value;
+    for (let i = 0; i < idFields.length; i++) {
+        urls[i] = `${baseUrl}${idFields[i].value}?fueltype=${fuelType}`;
+        titles[i] = nameFields[i].value;
+    }
 
     let graphTitle = `${fuelType} Price vs Time`;
     
     Promise.all(urls.map(url =>
         fetch(url)))
         .then(function (response) {
-            var jsonData = [];
-            for (var i = response.length - 1; i >= 0; i--) {
+            let jsonData = [];
+            for (let i = response.length - 1; i >= 0; i--) {
                 jsonData.push(response[i].json());
             }
             return Promise.all(jsonData);
         }
     ).then(function (data) {
-        var mergedArray = data[0].concat(data[1]);
-        //this should probably be changed completely
+        let mergedArray = data[0].concat(data[1]);
         //this code adds site names to the returned object
-        for (i = 0; i < mergedArray.length; i++) {
-            for (j = 0; j < titles.length; j++) {
+        for (let i = 0; i < mergedArray.length; i++) {
+            for (let j = 0; j < titles.length; j++) {
                 if (mergedArray[i].siteId == idFields[j].value) {
                     mergedArray[i].siteName = titles[j];
                 }                    
             }
         }
 
-        console.log(mergedArray);
-            var vlSpec = {
-                $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
-                title: graphTitle,
-                height: 500,
-                width: 'container',
-                data: {
-                    values: mergedArray.map(function (element) { element['price'] /= 1000; return element })
-                },
-                mark: {
-                    type: 'line',
-                    clip: true,
-                    point: true,
-                    tooltip: true,
-                    interpolate: 'step-after'
-                },
-                encoding: {
-                    y: {
-                        field: 'price',
-                        type: 'quantitative',
-                        axis: { title: 'Price' }
-                    },
-                    x: {
-                        field: 'transactionDateutc',
-                        type: "temporal",
-                        axis: { title: 'Date' }
-                    },
-                    color: {
-                        field: 'siteName',
-                        type: 'nominal',
-                    }
-                }
-            };
-            vegaEmbed("#" + divId, vlSpec);
-        });
+        create_multi_price_graph(graphTitle, mergedArray, divId);
+     });
+}
+
+function create_multi_price_graph(graphTitle, priceData, divId) {
+    var vlSpec = {
+        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
+        title: graphTitle,
+        height: 500,
+        width: 'container',
+        data: {
+            values: priceData.map(function (element) { element['price'] /= 1000; return element })
+        },
+        mark: {
+            type: 'line',
+            clip: true,
+            point: true,
+            tooltip: true,
+            interpolate: 'step-after'
+        },
+        encoding: {
+            y: {
+                field: 'price',
+                type: 'quantitative',
+                axis: { title: 'Price' }
+            },
+            x: {
+                field: 'transactionDateutc',
+                type: "temporal",
+                axis: { title: 'Date' }
+            },
+            color: {
+                field: 'siteName',
+                type: 'nominal',
+            }
+        }
+    };
+    vegaEmbed("#" + divId, vlSpec);
 }
 
 function getFuelTypes(apiUrl, fieldNo, siteId, className) {
@@ -119,7 +119,7 @@ var generateGraphBtn = document.getElementById("generateGraphBtn");
 let apiUrl = generateGraphBtn.dataset.baseapiurl;
 console.log(apiUrl);
 generateGraphBtn.addEventListener("click",
-    create_multi_price_graph.bind(null, apiUrl, "inputSiteName", "inputSiteId", "Unleaded", "vegagraph1"));
+    generateGraphBtnHandler.bind(null, apiUrl, "inputSiteName", "inputSiteId", "Unleaded", "vegagraph1"));
 generateGraphBtn.addEventListener("click",
     setFuelTypeButtons.bind(null, "inputFuelTypes")
 );
