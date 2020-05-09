@@ -1,5 +1,5 @@
 ﻿//create comparison graph using information from 'inputClass' fields
-function generateGraphBtnHandler(baseUrl, inputNameClass, inputIdClass, fuelType, divId) {
+function create_comparison_graph(baseUrl, inputNameClass, inputIdClass, fuelType, divId) {
     var idFields = document.getElementsByClassName(inputIdClass);
     var nameFields = document.getElementsByClassName(inputNameClass);
 
@@ -27,11 +27,11 @@ function generateGraphBtnHandler(baseUrl, inputNameClass, inputIdClass, fuelType
             }
             let mergedArray = data[0].concat(data[1]);
 
-            create_multi_price_graph(graphTitle, mergedArray, divId);
+            generate_vega_graph(graphTitle, mergedArray, divId);
      });
 }
 
-function create_multi_price_graph(graphTitle, priceData, divId) {
+function generate_vega_graph(graphTitle, priceData, divId) {
     var vlSpec = {
         $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
         title: graphTitle,
@@ -109,7 +109,7 @@ var generateGraphBtn = document.getElementById("generateGraphBtn");
 //bind button to generate comparison graph
 let apiUrl = generateGraphBtn.dataset.baseapiurl;
 generateGraphBtn.addEventListener("click",
-    generateGraphBtnHandler.bind(null, apiUrl, "inputSiteName", "inputSiteId", "Unleaded", "vegagraph1"));
+    create_comparison_graph.bind(null, apiUrl, "inputSiteName", "inputSiteId", "Unleaded", "vegagraph1"));
 generateGraphBtn.addEventListener("click",
     setFuelTypeButtons.bind(null, "inputFuelTypes")
 );
@@ -154,7 +154,7 @@ for (i = 0; i < btns.length; i++) {
     if (btns[i].dataset.apiurl) {
         let apiUrl = btns[i].dataset.apiurl;
         btns[i].addEventListener("click",
-            create_multi_price_graph.bind(null, apiUrl, "inputSiteName", "inputSiteId", btns[i].id, "vegagraph1")
+            create_comparison_graph.bind(null, apiUrl, "inputSiteName", "inputSiteId", btns[i].id, "vegagraph1")
         );
     }
 }
