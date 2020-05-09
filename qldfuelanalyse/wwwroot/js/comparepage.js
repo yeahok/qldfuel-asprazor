@@ -16,24 +16,18 @@ function generateGraphBtnHandler(baseUrl, inputNameClass, inputIdClass, fuelType
     Promise.all(urls.map(url =>
         fetch(url)))
         .then(function (response) {
-            let jsonData = [];
-            for (let i = response.length - 1; i >= 0; i--) {
-                jsonData.push(response[i].json());
+            return Promise.all(response.map(r => r.json()));
+        })
+        .then(function (data) {
+            //this code adds site names to the returned object
+            for (let i = 0; i < data.length; i++) {
+                for (let j = 0; j < data[i].length; j++) {
+                    data[i][j].siteName = titles[i];
+                }
             }
-            return Promise.all(jsonData);
-        }
-    ).then(function (data) {
-        let mergedArray = data[0].concat(data[1]);
-        //this code adds site names to the returned object
-        for (let i = 0; i < mergedArray.length; i++) {
-            for (let j = 0; j < titles.length; j++) {
-                if (mergedArray[i].siteId == idFields[j].value) {
-                    mergedArray[i].siteName = titles[j];
-                }                    
-            }
-        }
+            let mergedArray = data[0].concat(data[1]);
 
-        create_multi_price_graph(graphTitle, mergedArray, divId);
+            create_multi_price_graph(graphTitle, mergedArray, divId);
      });
 }
 
@@ -88,13 +82,10 @@ function getFuelTypes(apiUrl, fieldNo, siteId, className) {
 function setFuelTypeButtons(className) {
     document.getElementById("fuel-type-btn-group").removeAttribute("hidden");
 
-    console.log("hello");
     let fuelTypeFields = document.getElementsByClassName(className);
-    console.log(fuelTypeFields);
     let fuelTypeLists = [];
     for (let i = 0; i < fuelTypeFields.length; i++) {
         fuelTypeLists[i] = fuelTypeFields[i].value.split(",");
-        console.log(fuelTypeLists[i]);
     }
     //change this later to work for arbitrary length 
     let intersectFuelList = fuelTypeLists[0].filter(value => fuelTypeLists[1].includes(value));
@@ -117,7 +108,6 @@ var generateGraphBtn = document.getElementById("generateGraphBtn");
 
 //bind button to generate comparison graph
 let apiUrl = generateGraphBtn.dataset.baseapiurl;
-console.log(apiUrl);
 generateGraphBtn.addEventListener("click",
     generateGraphBtnHandler.bind(null, apiUrl, "inputSiteName", "inputSiteId", "Unleaded", "vegagraph1"));
 generateGraphBtn.addEventListener("click",
