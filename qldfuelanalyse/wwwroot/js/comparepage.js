@@ -28,6 +28,7 @@ function create_comparison_graph(baseUrl, inputNameClass, inputIdClass, fuelType
             let mergedArray = data[0].concat(data[1]);
 
             generate_vega_graph(graphTitle, mergedArray, divId);
+            create_stats_table(data)
      });
 }
 
@@ -65,6 +66,45 @@ function generate_vega_graph(graphTitle, priceData, divId) {
         }
     };
     vegaEmbed("#" + divId, vlSpec);
+}
+
+function create_stats_table(priceData) {
+    //most of this needs to be refactored
+
+    //generate stats
+    let stats = [];
+    for (let i = 0; i < priceData.length; i++) {
+        let prices = priceData[i].map(item => {
+            return item["price"]
+        })
+        let stat = { };
+        stat["min"] = Math.min(...prices);
+        stat["max"] = Math.max(...prices);
+        stats.push(stat);
+    }
+
+    let table = document.getElementById("fuelStatsTable");
+    table.innerHTML = "";
+
+    //generate actual table
+    let header = table.createTHead();
+    let hrow = header.insertRow();     
+    let th1 = hrow.insertCell();
+    let th2 = hrow.insertCell();
+    let th3 = hrow.insertCell();
+    th1.appendChild(document.createTextNode("Site"));
+    th2.appendChild(document.createTextNode("Min"));
+    th3.appendChild(document.createTextNode("Max"));
+
+    for (i = 0; i < stats.length; i++) {
+        let row = table.insertRow();
+        let td1 = row.insertCell();
+        let td2 = row.insertCell();
+        let td3 = row.insertCell();
+        td1.appendChild(document.createTextNode(priceData[i][0].siteName))
+        td2.appendChild(document.createTextNode(stats[i]["min"]))
+        td3.appendChild(document.createTextNode(stats[i]["max"]))
+    }
 }
 
 function getFuelTypes(apiUrl, fieldNo, siteId, className) {
