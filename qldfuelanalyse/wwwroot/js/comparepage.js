@@ -80,6 +80,7 @@ function create_stats_table(priceData) {
         let stat = { };
         stat["min"] = Math.min(...prices);
         stat["max"] = Math.max(...prices);
+        stat["mean"] = mean(prices);
         stats.push(stat);
     }
 
@@ -92,19 +93,33 @@ function create_stats_table(priceData) {
     let th1 = hrow.insertCell();
     let th2 = hrow.insertCell();
     let th3 = hrow.insertCell();
+    let th4 = hrow.insertCell();
     th1.appendChild(document.createTextNode("Site"));
     th2.appendChild(document.createTextNode("Min"));
     th3.appendChild(document.createTextNode("Max"));
+    th4.appendChild(document.createTextNode("Mean"));
 
     for (i = 0; i < stats.length; i++) {
         let row = table.insertRow();
         let td1 = row.insertCell();
         let td2 = row.insertCell();
         let td3 = row.insertCell();
+        let td4 = row.insertCell();
         td1.appendChild(document.createTextNode(priceData[i][0].siteName))
         td2.appendChild(document.createTextNode(stats[i]["min"]))
         td3.appendChild(document.createTextNode(stats[i]["max"]))
+        td4.appendChild(document.createTextNode(stats[i]["mean"]))
     }
+}
+
+function mean(values) {
+    let sum = 0;
+    for (let i = 0; i < values.length; i++) {
+        sum += values[i];
+    }
+    let average = sum / values.length
+        
+    return Number.parseFloat(average).toPrecision(4);
 }
 
 function getFuelTypes(apiUrl, fieldNo, siteId, className) {
