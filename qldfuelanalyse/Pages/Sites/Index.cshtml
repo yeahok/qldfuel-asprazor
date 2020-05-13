@@ -23,11 +23,14 @@
                 </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteBrand)
+                <a asp-page="/Sites/index" asp-route-sortby="2" asp-route-search="@Model.Search">
+                    @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteBrand)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteSuburb)
-            <th></th>
+                <a asp-page="/Sites/index" asp-route-sortby="3" asp-route-search="@Model.Search">
+                    @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteSuburb)
+                </a>
         </tr>
     </thead>
     <tbody>
