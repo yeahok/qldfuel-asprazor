@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 using qldfuelanalyse.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace qldfuelanalyse.Pages.Sites
 {
@@ -22,6 +23,8 @@ namespace qldfuelanalyse.Pages.Sites
         static HttpClient client = new HttpClient();
         public SitesObj SitesObj { get; set; }
 
+        public SelectList Brands { get; set; }
+
         [BindProperty(SupportsGet = true)]
         public string PageNum { get; set; }
 
@@ -30,6 +33,9 @@ namespace qldfuelanalyse.Pages.Sites
 
         [BindProperty(SupportsGet = true)]
         public string SortBy { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public string Brand { get; set; }
 
         public async Task OnGet()
         {
@@ -47,11 +53,21 @@ namespace qldfuelanalyse.Pages.Sites
             {
                 sortByQuery = string.Format("&sortby={0}", SortBy);
             }
-            Console.WriteLine(searchQuery);
+            string BrandQuery = "";
+            if (!string.IsNullOrEmpty(Brand))
+            {
+                BrandQuery = string.Format("&brand={0}", Brand);
+            }
             HttpResponseMessage response = await client.GetAsync(
-                string.Format("{0}api/sites/?page={1}{2}{3}", FuelApiBaseUrl, PageNum, searchQuery, sortByQuery));
+                string.Format("{0}api/sites/?page={1}{2}{3}{4}", FuelApiBaseUrl, PageNum, searchQuery, sortByQuery, BrandQuery));
             SitesObj = JsonConvert.DeserializeObject<SitesObj> (
                 await response.Content.ReadAsStringAsync());
+
+            response = await client.GetAsync(
+                string.Format("{0}api/sites/brands", FuelApiBaseUrl));
+            var BrandsList = JsonConvert.DeserializeObject<List<string>>(
+                await response.Content.ReadAsStringAsync());
+            Brands = new SelectList(BrandsList);
         }
     }
 }

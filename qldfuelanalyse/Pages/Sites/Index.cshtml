@@ -10,6 +10,9 @@
     <p>
         Site Name:
         <input type="text" asp-for="Search" />
+        <select asp-for="Brand" asp-items="Model.Brands">
+            <option value="">All</option>
+        </select>
         <input type="submit" value="Search" />
     </p>
 </form>
@@ -18,17 +21,17 @@
     <thead>
         <tr>
             <th>
-                <a asp-page="/Sites/index" asp-route-sortby="1" asp-route-search="@Model.Search">
+                <a asp-page="/Sites/index" asp-route-sortby="1" asp-route-search="@Model.Search" asp-route-brand="@Model.Brand">
                     @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteName)
                 </a>
             </th>
             <th>
-                <a asp-page="/Sites/index" asp-route-sortby="2" asp-route-search="@Model.Search">
+                <a asp-page="/Sites/index" asp-route-sortby="2" asp-route-search="@Model.Search" asp-route-brand="@Model.Brand">
                     @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteBrand)
                 </a>
             </th>
             <th>
-                <a asp-page="/Sites/index" asp-route-sortby="3" asp-route-search="@Model.Search">
+                <a asp-page="/Sites/index" asp-route-sortby="3" asp-route-search="@Model.Search" asp-route-brand="@Model.Brand">
                     @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteSuburb)
                 </a>
         </tr>
@@ -62,14 +65,14 @@
         @if (PageNum > 1)
         {
             <li class="page-item">
-                <a class="page-link" asp-page="/Sites/index" asp-route-PageNum="@(PageNum - 1 )" asp-route-search="@Model.Search" asp-route-sortby="@Model.SortBy">Previous Page</a>
+                <a class="page-link" asp-page="/Sites/index" asp-route-PageNum="@(PageNum - 1 )" asp-route-search="@Model.Search" asp-route-sortby="@Model.SortBy" asp-route-brand="@Model.Brand">Previous Page</a>
             </li>
         }
 
         @if (PageNum < TotalPages)
         {
     <li class="page-item">
-        <a class="page-link" asp-page="/Sites/index" asp-route-PageNum="@(PageNum + 1 )" asp-route-search="@Model.Search" asp-route-sortby="@Model.SortBy">Next Page</a>
+        <a class="page-link" asp-page="/Sites/index" asp-route-PageNum="@(PageNum + 1 )" asp-route-search="@Model.Search" asp-route-sortby="@Model.SortBy" asp-route-brand="@Model.Brand">Next Page</a>
     </li>
                 }
         </ul>
