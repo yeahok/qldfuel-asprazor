@@ -11,6 +11,10 @@ function create_comparison_graph(baseUrl, inputNameClass, inputIdClass, fuelType
         titles[i] = nameFields[i].value;
     }
 
+    if (validate_input(titles)) {
+        return;
+    }
+
     let graphTitle = `${fuelType} Price vs Time`;
     
     Promise.all(urls.map(url =>
@@ -30,6 +34,16 @@ function create_comparison_graph(baseUrl, inputNameClass, inputIdClass, fuelType
             generate_vega_graph(graphTitle, mergedArray, divId);
             create_stats_table(data)
      });
+}
+
+function validate_input(titles) {
+    for (let i = 0; i < titles.length; i++) {
+        if (titles[i].length < 1) {
+            alert("Missing input for comparison");
+            return true;
+        }
+    }
+    return false;
 }
 
 function generate_vega_graph(graphTitle, priceData, divId) {
