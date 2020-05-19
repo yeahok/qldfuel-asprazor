@@ -2,7 +2,7 @@
 @model qldfuelanalyse.Pages.Sites.DetailsModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = @Model.SitesObj.Sites.First().SiteName;
 }
 
 @{string basePriceUrl = String.Format("{0}api/prices/{1}", Model.FuelApiBaseUrlClient, Model.SitesObj.Sites.First().SiteId.ToString());
