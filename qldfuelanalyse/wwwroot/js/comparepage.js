@@ -11,10 +11,6 @@ function create_comparison_graph(baseUrl, inputNameClass, inputIdClass, fuelType
         titles[i] = nameFields[i].value;
     }
 
-    if (validate_input(titles)) {
-        return;
-    }
-
     let graphTitle = `${fuelType} Price vs Time`;
     
     Promise.all(urls.map(url =>
@@ -36,9 +32,11 @@ function create_comparison_graph(baseUrl, inputNameClass, inputIdClass, fuelType
      });
 }
 
-function validate_input(titles) {
-    for (let i = 0; i < titles.length; i++) {
-        if (titles[i].length < 1) {
+function validate_input(inputNameClass) {
+    let nameFields = document.getElementsByClassName(inputNameClass);
+
+    for (let i = 0; i < nameFields.length; i++) {
+        if (nameFields[i].value.length < 1) {
             alert("Missing input for comparison");
             return true;
         }
@@ -172,16 +170,23 @@ function setFuelTypeButtons(className) {
     }
 }
 
+function generateGraphBtnHandler(baseUrl, inputNameClass, inputIdClass, fuelType, divId, fuelTypeBtnsClass) {
+    if (validate_input(inputNameClass)) {
+        return;
+
+    setFuelTypeButtons(fuelTypeBtnsClass);
+    create_comparison_graph(baseUrl, inputNameClass, inputIdClass, fuelType, divId);    
+}
+
 //set up buttons to change graph
 var generateGraphBtn = document.getElementById("generateGraphBtn");
 
 //bind button to generate comparison graph
 let apiUrl = generateGraphBtn.dataset.baseapiurl;
 generateGraphBtn.addEventListener("click",
-    create_comparison_graph.bind(null, apiUrl, "inputSiteName", "inputSiteId", "Unleaded", "vegagraph1"));
-generateGraphBtn.addEventListener("click",
-    setFuelTypeButtons.bind(null, "inputFuelTypes")
+    generateGraphBtnHandler.bind(null, apiUrl, "inputSiteName", "inputSiteId", "Unleaded", "vegagraph1", "inputFuelTypes")
 );
+
 
 //create data source for typeahead
 let siteApiUrl = document.getElementById("siteapi").dataset.basesiteapiurl;
