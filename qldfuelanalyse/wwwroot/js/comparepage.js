@@ -173,6 +173,7 @@ function setFuelTypeButtons(className) {
 function generateGraphBtnHandler(baseUrl, inputNameClass, inputIdClass, fuelType, divId, fuelTypeBtnsClass) {
     if (validate_input(inputNameClass)) {
         return;
+    }
 
     setFuelTypeButtons(fuelTypeBtnsClass);
     create_comparison_graph(baseUrl, inputNameClass, inputIdClass, fuelType, divId);    
