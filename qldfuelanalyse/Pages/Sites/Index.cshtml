@@ -56,10 +56,8 @@
         }
     </tbody>
 </table>
-@{int PerPage = 10;}
 @{int PageNum = int.Parse(Model.PageNum);}
 @*this doesn't look very good*@
-@{int TotalPages = (int)Math.Ceiling((double)Model.SitesObj.QueryInfo.RowCount / (double)PerPage);}
 <nav>
     <ul class="pagination">
         @if (PageNum > 1)
@@ -69,11 +67,11 @@
             </li>
         }
 
-        @if (PageNum < TotalPages)
+        @if (PageNum < Model.TotalPages)
         {
-    <li class="page-item">
-        <a class="page-link" asp-page="/Sites/index" asp-route-PageNum="@(PageNum + 1 )" asp-route-search="@Model.Search" asp-route-sortby="@Model.SortBy" asp-route-brand="@Model.Brand">Next Page</a>
-    </li>
-                }
+            <li class="page-item">
+                <a class="page-link" asp-page="/Sites/index" asp-route-PageNum="@(PageNum + 1 )" asp-route-search="@Model.Search" asp-route-sortby="@Model.SortBy" asp-route-brand="@Model.Brand">Next Page</a>
+            </li>
+        }
         </ul>
 </nav>

@@ -28,6 +28,10 @@ namespace qldfuelanalyse.Pages.Sites
         [BindProperty(SupportsGet = true)]
         public string PageNum { get; set; }
 
+        public int TotalPages { get; set; }
+        public int PerPage { get; set; }
+        public List<int> PageNumRange { get; set; }
+
         [BindProperty(SupportsGet = true)]
         public string Search { get; set; }
 
@@ -68,6 +72,9 @@ namespace qldfuelanalyse.Pages.Sites
             var BrandsList = JsonConvert.DeserializeObject<List<string>>(
                 await response.Content.ReadAsStringAsync());
             Brands = new SelectList(BrandsList);
+
+            PerPage = 10;
+            TotalPages = (int)Math.Ceiling((double)SitesObj.QueryInfo.RowCount / (double)PerPage);
         }
     }
 }
