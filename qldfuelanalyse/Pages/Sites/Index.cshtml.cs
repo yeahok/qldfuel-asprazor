@@ -30,7 +30,7 @@ namespace qldfuelanalyse.Pages.Sites
 
         public int TotalPages { get; set; }
         public int PerPage { get; set; }
-        public List<int> PageNumRange { get; set; }
+        public IEnumerable<int> PageNumRange { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string Search { get; set; }
@@ -75,6 +75,35 @@ namespace qldfuelanalyse.Pages.Sites
 
             PerPage = 10;
             TotalPages = (int)Math.Ceiling((double)SitesObj.QueryInfo.RowCount / (double)PerPage);
+            PageNumRange = CreatePageRange(int.Parse(PageNum), TotalPages);
+        }
+
+        public IEnumerable<int> CreatePageRange(int PageNum, int TotalPages)
+        {
+            //not good
+            int start;
+            int count;
+            if (TotalPages < 5)
+            {
+                count = TotalPages;
+                start = 1;
+            }
+            else if (PageNum < 3)
+            {
+                count = 5;
+                start = 1;
+            }
+            else if (TotalPages <= PageNum + 2)
+            {
+                count = 5;
+                start = TotalPages - 4;
+            }
+            else
+            {
+                count = 5;
+                start = PageNum - 2;
+            }
+            return Enumerable.Range(start, count);
         }
     }
 }

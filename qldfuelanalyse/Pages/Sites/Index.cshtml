@@ -66,6 +66,10 @@
                 <a class="page-link" asp-page="/Sites/index" asp-route-PageNum="@(PageNum - 1 )" asp-route-search="@Model.Search" asp-route-sortby="@Model.SortBy" asp-route-brand="@Model.Brand">Previous Page</a>
             </li>
         }
+        @foreach (int page in Model.PageNumRange)
+        {
+            <a class="page-link" asp-page="/Sites/index" asp-route-PageNum="@(page)" asp-route-search="@Model.Search" asp-route-sortby="@Model.SortBy" asp-route-brand="@Model.Brand">@(page)</a>
+        }
 
         @if (PageNum < Model.TotalPages)
         {
@@ -73,5 +77,5 @@
                 <a class="page-link" asp-page="/Sites/index" asp-route-PageNum="@(PageNum + 1 )" asp-route-search="@Model.Search" asp-route-sortby="@Model.SortBy" asp-route-brand="@Model.Brand">Next Page</a>
             </li>
         }
-        </ul>
+    </ul>
 </nav>
