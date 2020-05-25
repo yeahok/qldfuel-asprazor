@@ -68,7 +68,14 @@
         }
         @foreach (int page in Model.PageNumRange)
         {
-            <a class="page-link" asp-page="/Sites/index" asp-route-PageNum="@(page)" asp-route-search="@Model.Search" asp-route-sortby="@Model.SortBy" asp-route-brand="@Model.Brand">@(page)</a>
+            string activeclass = "";
+            @if (page == PageNum)
+            {
+                activeclass = "active";
+            }
+            <li class="page-item @(activeclass)">
+                <a class="page-link" asp-page="/Sites/index" asp-route-PageNum="@(page)" asp-route-search="@Model.Search" asp-route-sortby="@Model.SortBy" asp-route-brand="@Model.Brand">@(page)</a>
+            </li>
         }
 
         @if (PageNum < Model.TotalPages)
