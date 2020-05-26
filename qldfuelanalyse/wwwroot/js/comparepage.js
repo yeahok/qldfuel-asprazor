@@ -175,14 +175,14 @@ function setFuelTypeButtons(intersectFuelList) {
 }
 
 
-function generateGraphBtnHandler(baseUrl, inputNameClass, inputIdClass, fuelType, divId, fuelTypeBtnsClass) {
+function generateGraphBtnHandler(baseUrl, inputNameClass, inputIdClass, divId, fuelTypeBtnsClass) {
     if (validate_input(inputNameClass)) {
         return;
     }
 
     let fuelTypes = getFuelTypesIntersect(fuelTypeBtnsClass);
     setFuelTypeButtons(fuelTypes);
-    create_comparison_graph(baseUrl, inputNameClass, inputIdClass, fuelType, divId);    
+    create_comparison_graph(baseUrl, inputNameClass, inputIdClass, fuelTypes[0], divId);    
 }
 
 //set up buttons to change graph
@@ -191,7 +191,7 @@ var generateGraphBtn = document.getElementById("generateGraphBtn");
 //bind button to generate comparison graph
 let apiUrl = generateGraphBtn.dataset.baseapiurl;
 generateGraphBtn.addEventListener("click",
-    generateGraphBtnHandler.bind(null, apiUrl, "inputSiteName", "inputSiteId", "Unleaded", "vegagraph1", "inputFuelTypes")
+    generateGraphBtnHandler.bind(null, apiUrl, "inputSiteName", "inputSiteId", "vegagraph1", "inputFuelTypes")
 );
 
 
