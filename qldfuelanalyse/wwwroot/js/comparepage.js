@@ -146,7 +146,7 @@ function getFuelTypes(apiUrl, fieldNo, siteId, className) {
      })
 };
 
-function setFuelTypeButtons(className) {
+function getFuelTypesIntersect(className) {
     document.getElementById("fuel-type-btn-group").removeAttribute("hidden");
 
     let fuelTypeFields = document.getElementsByClassName(className);
@@ -156,6 +156,10 @@ function setFuelTypeButtons(className) {
     }
     //change this later to work for arbitrary length 
     let intersectFuelList = fuelTypeLists[0].filter(value => fuelTypeLists[1].includes(value));
+    return intersectFuelList;
+}
+
+function setFuelTypeButtons(intersectFuelList) {
     let btns = document.getElementsByClassName("fuel-type-btn")
 
     for (let i = 0; i < btns.length; i++) {
@@ -170,12 +174,14 @@ function setFuelTypeButtons(className) {
     }
 }
 
+
 function generateGraphBtnHandler(baseUrl, inputNameClass, inputIdClass, fuelType, divId, fuelTypeBtnsClass) {
     if (validate_input(inputNameClass)) {
         return;
     }
 
-    setFuelTypeButtons(fuelTypeBtnsClass);
+    let fuelTypes = getFuelTypesIntersect(fuelTypeBtnsClass);
+    setFuelTypeButtons(fuelTypes);
     create_comparison_graph(baseUrl, inputNameClass, inputIdClass, fuelType, divId);    
 }
 
