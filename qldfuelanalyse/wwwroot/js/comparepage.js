@@ -147,8 +147,6 @@ function getFuelTypes(apiUrl, fieldNo, siteId, className) {
 };
 
 function getFuelTypesIntersect(className) {
-    document.getElementById("fuel-type-btn-group").removeAttribute("hidden");
-
     let fuelTypeFields = document.getElementsByClassName(className);
     let fuelTypeLists = [];
     for (let i = 0; i < fuelTypeFields.length; i++) {
@@ -160,6 +158,7 @@ function getFuelTypesIntersect(className) {
 }
 
 function setFuelTypeButtons(intersectFuelList) {
+    document.getElementById("fuel-type-btn-group").removeAttribute("hidden");
     let btns = document.getElementsByClassName("fuel-type-btn")
 
     for (let i = 0; i < btns.length; i++) {
