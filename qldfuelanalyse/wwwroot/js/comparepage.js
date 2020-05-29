@@ -148,12 +148,13 @@ function getFuelTypes(apiUrl, fieldNo, siteId, className) {
 
 function getFuelTypesIntersect(className) {
     let fuelTypeFields = document.getElementsByClassName(className);
-    let fuelTypeLists = [];
-    for (let i = 0; i < fuelTypeFields.length; i++) {
-        fuelTypeLists[i] = fuelTypeFields[i].value.split(",");
+    //initialise with first index
+    let intersectFuelList = fuelTypeFields[0].value.split(",");
+
+    //skip first index
+    for (let i = 1; i < fuelTypeFields.length; i++) {
+        intersectFuelList = fuelTypeFields[i].value.split(",").filter(value => intersectFuelList.includes(value));
     }
-    //change this later to work for arbitrary length 
-    let intersectFuelList = fuelTypeLists[0].filter(value => fuelTypeLists[1].includes(value));
     return intersectFuelList;
 }
 
