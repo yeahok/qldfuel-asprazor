@@ -17,7 +17,12 @@
     </p>
 </form>
 <table class="table">
-
+    @if (Model.SitesObj.Sites.Count == 0)
+    {
+        <p>No Items Found</p>
+    }
+    else
+    {
     <thead>
         <tr>
             <th>
@@ -36,6 +41,7 @@
                 </a>
         </tr>
     </thead>
+    }
     <tbody>
         @foreach (var item in Model.SitesObj.Sites)
         {
