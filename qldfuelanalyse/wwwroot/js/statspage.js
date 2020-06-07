@@ -23,7 +23,10 @@
                     y: {
                         field: 'price',
                         type: 'quantitative',
-                        axis: { title: 'Price' },
+                        axis: {
+                            title: 'Price (AUD)',
+                            format: '.2f'
+                        },
                         scale: { domain: [1,2] }
                     },
                     x: {
