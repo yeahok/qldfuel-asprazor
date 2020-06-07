@@ -29,7 +29,10 @@
                     x: {
                         field: 'transactionDateutc',
                         type: "temporal",
-                        axis: { title: 'Date' }
+                        axis: {
+                            title: 'Date',
+                            format: '%-d %b %y'
+                        }
                     }
                 }
             };
