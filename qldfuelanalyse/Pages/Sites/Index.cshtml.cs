@@ -29,6 +29,8 @@ namespace qldfuelanalyse.Pages.Sites
         public string PageNum { get; set; }
 
         public int TotalPages { get; set; }
+
+        [BindProperty(SupportsGet = true)]
         public int PerPage { get; set; }
         public IEnumerable<int> PageNumRange { get; set; }
 
@@ -62,8 +64,15 @@ namespace qldfuelanalyse.Pages.Sites
             {
                 BrandQuery = string.Format("&brand={0}", Brand);
             }
+
+            if (PerPage < 10)
+            {
+                PerPage = 10;
+            }
+            string PerPageQuery = string.Format("&limit={0}", PerPage);
+
             HttpResponseMessage response = await client.GetAsync(
-                string.Format("{0}api/sites/?page={1}{2}{3}{4}", FuelApiBaseUrl, PageNum, searchQuery, sortByQuery, BrandQuery));
+                string.Format("{0}api/sites/?page={1}{2}{3}{4}{5}", FuelApiBaseUrl, PageNum, searchQuery, sortByQuery, BrandQuery, PerPageQuery));
             SitesObj = JsonConvert.DeserializeObject<SitesObj> (
                 await response.Content.ReadAsStringAsync());
 
@@ -73,7 +82,6 @@ namespace qldfuelanalyse.Pages.Sites
                 await response.Content.ReadAsStringAsync());
             Brands = new SelectList(BrandsList);
 
-            PerPage = 10;
             TotalPages = (int)Math.Ceiling((double)SitesObj.QueryInfo.RowCount / (double)PerPage);
             PageNumRange = CreatePageRange(int.Parse(PageNum), TotalPages);
         }

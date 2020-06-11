@@ -13,6 +13,11 @@
         <select asp-for="Brand" asp-items="Model.Brands">
             <option value="">All</option>
         </select>
+        Results per page:
+        <select asp-for="PerPage">
+            <option value="10">10</option>
+            <option value="20">20</option>
+        </select>
         <input type="submit" value="Search" />
     </p>
 </form>
@@ -26,17 +31,17 @@
     <thead>
         <tr>
             <th>
-                <a asp-page="/Sites/index" asp-route-sortby="1" asp-route-search="@Model.Search" asp-route-brand="@Model.Brand">
+                <a asp-page="/Sites/index" asp-route-sortby="1" asp-route-search="@Model.Search" asp-route-brand="@Model.Brand" asp-route-perpage="@Model.PerPage">
                     @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteName)
                 </a>
             </th>
             <th>
-                <a asp-page="/Sites/index" asp-route-sortby="2" asp-route-search="@Model.Search" asp-route-brand="@Model.Brand">
+                <a asp-page="/Sites/index" asp-route-sortby="2" asp-route-search="@Model.Search" asp-route-brand="@Model.Brand" asp-route-perpage="@Model.PerPage">
                     @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteBrand)
                 </a>
             </th>
             <th>
-                <a asp-page="/Sites/index" asp-route-sortby="3" asp-route-search="@Model.Search" asp-route-brand="@Model.Brand">
+                <a asp-page="/Sites/index" asp-route-sortby="3" asp-route-search="@Model.Search" asp-route-brand="@Model.Brand" asp-route-perpage="@Model.PerPage">
                     @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteSuburb)
                 </a>
         </tr>
@@ -69,7 +74,7 @@
         @if (PageNum > 1)
         {
             <li class="page-item">
-                <a class="page-link" asp-page="/Sites/index" asp-route-PageNum="@(PageNum - 1 )" asp-route-search="@Model.Search" asp-route-sortby="@Model.SortBy" asp-route-brand="@Model.Brand">Previous Page</a>
+                <a class="page-link" asp-page="/Sites/index" asp-route-PageNum="@(PageNum - 1 )" asp-route-search="@Model.Search" asp-route-sortby="@Model.SortBy" asp-route-brand="@Model.Brand" asp-route-perpage="@Model.PerPage">Previous Page</a>
             </li>
         }
         @foreach (int page in Model.PageNumRange)
@@ -80,14 +85,14 @@
                 activeclass = "active";
             }
             <li class="page-item @(activeclass)">
-                <a class="page-link" asp-page="/Sites/index" asp-route-PageNum="@(page)" asp-route-search="@Model.Search" asp-route-sortby="@Model.SortBy" asp-route-brand="@Model.Brand">@(page)</a>
+                <a class="page-link" asp-page="/Sites/index" asp-route-PageNum="@(page)" asp-route-search="@Model.Search" asp-route-sortby="@Model.SortBy" asp-route-brand="@Model.Brand" asp-route-perpage="@Model.PerPage">@(page)</a>
             </li>
         }
 
         @if (PageNum < Model.TotalPages)
         {
             <li class="page-item">
-                <a class="page-link" asp-page="/Sites/index" asp-route-PageNum="@(PageNum + 1 )" asp-route-search="@Model.Search" asp-route-sortby="@Model.SortBy" asp-route-brand="@Model.Brand">Next Page</a>
+                <a class="page-link" asp-page="/Sites/index" asp-route-PageNum="@(PageNum + 1 )" asp-route-search="@Model.Search" asp-route-sortby="@Model.SortBy" asp-route-brand="@Model.Brand" asp-route-perpage="@Model.PerPage">Next Page</a>
             </li>
         }
     </ul>
