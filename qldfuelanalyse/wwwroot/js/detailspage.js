@@ -1,5 +1,5 @@
-﻿function create_single_price_graph(baseUrl, fuelType, siteName, divId) {
-    let url = `${baseUrl}?fueltype=${fuelType}`;
+﻿function create_single_price_graph(baseUrl, fuelType, siteName, divId, daterange) {
+    let url = `${baseUrl}?fueltype=${fuelType}&daterange=${daterange}`;
     let graphTitle = `${fuelType} Price vs Time (${siteName})`;
 
     fetch(url)
@@ -55,7 +55,7 @@ for (i = 0; i < btns.length; i++) {
     if (btns[i].dataset.apiurl) {
         let apiUrl = btns[i].dataset.apiurl;
         btns[i].addEventListener("click",
-            create_single_price_graph.bind(null, apiUrl, btns[i].id, btns[i].dataset.sitename, "vegagraph1")
+            create_single_price_graph.bind(null, apiUrl, btns[i].id, btns[i].dataset.sitename, "vegagraph1", 31)
         );
     }
 }
