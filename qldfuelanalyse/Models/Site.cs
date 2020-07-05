@@ -8,25 +8,29 @@ namespace qldfuelanalyse.Models
 {
     public class Site
     {
-        public int SiteId { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "Name")]
-        public string SiteName { get; set; }
+        public string Name { get; set; }
 
         [Display(Name = "Brand")]
-        public string SiteBrand { get; set; }
+        public string Brand { get; set; }
 
         [Display(Name = "Address")]
-        public string SitesAddressLine1 { get; set; }
+        public string Address { get; set; }
 
         [Display(Name = "Suburb")]
-        public string SiteSuburb { get; set; }
-        public string SiteState { get; set; }
+        public string RegionLevel1 { get; set; }
+
+        [Display(Name = "City")]
+        public string RegionLevel2 { get; set; }
 
         [Display(Name = "Postcode")]
-        public int? SitePostCode { get; set; }
-        public decimal? SiteLatitude { get; set; }
-        public decimal? SiteLongitude { get; set; }
+        public string PostCode { get; set; }
+        public decimal? Latitude { get; set; }
+        public decimal? Longitude { get; set; }
+
+        public DateTime? ModifiedDate { get; set; }
 
     }
 

@@ -7,10 +7,10 @@ namespace qldfuelanalyse.Models
 {
     public class Prices
     {
-        public int TransactionId { get; set; }
+        public int Id { get; set; }
         public int SiteId { get; set; }
-        public string FuelType { get; set; }
-        public int Price { get; set; }
-        public DateTime TransactionDateutc { get; set; }
+        public string FuelName { get; set; }
+        public int Amount { get; set; }
+        public DateTime TransactionDate { get; set; }
     }
 }

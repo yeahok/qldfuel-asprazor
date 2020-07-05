@@ -2,12 +2,12 @@
 @model qldfuelanalyse.Pages.Sites.DetailsModel
 
 @{
-    ViewData["Title"] = @Model.SitesObj.Sites.First().SiteName;
+    ViewData["Title"] = @Model.SitesObj.Sites.First().Name;
 }
 
-@{string basePriceUrl = String.Format("{0}api/prices/{1}", Model.FuelApiBaseUrlClient, Model.SitesObj.Sites.First().SiteId.ToString());
+@{string basePriceUrl = String.Format("{0}api/prices/{1}", Model.FuelApiBaseUrlClient, Model.SitesObj.Sites.First().Id.ToString());
     string fuelType = Model.SitesObj.QueryInfo.FuelTypes.First();
-    string siteName = Model.SitesObj.Sites.First().SiteName;
+    string siteName = Model.SitesObj.Sites.First().Name;
 }
 
 @section Scripts
@@ -26,37 +26,37 @@
     </script>
 }
 
-<h2>@Html.DisplayFor(model => model.SitesObj.Sites.First().SiteName)</h2>
+<h2>@Html.DisplayFor(model => model.SitesObj.Sites.First().Name)</h2>
 
 <div>
     <hr />
     <dl class="row">
         <dt class="col-sm-6">
-            @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteBrand)
+            @Html.DisplayNameFor(model => model.SitesObj.Sites.First().Brand)
         </dt>
         <dd class="col-sm-6">
-            @Html.DisplayFor(model => model.SitesObj.Sites.First().SiteBrand)
+            @Html.DisplayFor(model => model.SitesObj.Sites.First().Brand)
         </dd>
 
         <dt class="col-sm-6">
-            @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SitesAddressLine1)
+            @Html.DisplayNameFor(model => model.SitesObj.Sites.First().Address)
         </dt>
         <dd class="col-sm-6">
-            @Html.DisplayFor(model => model.SitesObj.Sites.First().SitesAddressLine1)
+            @Html.DisplayFor(model => model.SitesObj.Sites.First().Address)
         </dd>
 
         <dt class="col-sm-6">
-            @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteSuburb)
+            @Html.DisplayNameFor(model => model.SitesObj.Sites.First().RegionLevel1)
         </dt>
         <dd class="col-sm-6">
-            @Html.DisplayFor(model => model.SitesObj.Sites.First().SiteSuburb)
+            @Html.DisplayFor(model => model.SitesObj.Sites.First().RegionLevel1)
         </dd>
 
         <dt class="col-sm-6">
-            @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SitePostCode)
+            @Html.DisplayNameFor(model => model.SitesObj.Sites.First().PostCode)
         </dt>
         <dd class="col-sm-6">
-            @Html.DisplayFor(model => model.SitesObj.Sites.First().SitePostCode)
+            @Html.DisplayFor(model => model.SitesObj.Sites.First().PostCode)
         </dd>
     </dl>
     <h3>Latest Prices</h3>
@@ -64,21 +64,21 @@
         @foreach (var item in Model.Prices)
         {
             <dt class="col-sm-4">
-                @Html.DisplayFor(modelItem => item.FuelType)
+                @Html.DisplayFor(modelItem => item.FuelName)
             </dt>
             <dd class="col-sm-4">
-                @{double parameterValue = (double)item.Price / 1000;}
+                @{double parameterValue = (double)item.Amount / 1000;}
                 $
                 @Html.DisplayFor(modelItem => parameterValue)
             </dd>
             <dd class="col-sm-4">
                 Recorded on:
-                @Html.DisplayFor(modelItem => item.TransactionDateutc)
+                @Html.DisplayFor(modelItem => item.TransactionDate)
             </dd>
         }
     </dl>
 
-    <div id="mapid" data-lat="@Model.SitesObj.Sites.First().SiteLatitude" data-long="@Model.SitesObj.Sites.First().SiteLongitude" data-sitename="@siteName"></div>
+    <div id="mapid" data-lat="@Model.SitesObj.Sites.First().Latitude" data-long="@Model.SitesObj.Sites.First().Longitude" data-sitename="@siteName"></div>
     <div id="vegagraph1" class="container"></div>
     <div class="btn-group btn-group-toggle" data-toggle="buttons">
         @{bool first = true;}
