@@ -22,7 +22,7 @@ function create_comparison_graph(baseUrl, inputNameClass, inputIdClass, fuelType
             //this code adds site names to the returned object
             for (let i = 0; i < data.length; i++) {
                 for (let j = 0; j < data[i].length; j++) {
-                    data[i][j].siteName = titles[i];
+                    data[i][j].name = titles[i];
                 }
             }
             let mergedArray = data[0].concat(data[1]);
@@ -51,7 +51,7 @@ function generate_vega_graph(graphTitle, priceData, divId) {
         height: 500,
         width: 'container',
         data: {
-            values: priceData.map(function (element) { element['price'] /= 1000; return element })
+            values: priceData.map(function (element) { element['amount'] /= 1000; return element })
         },
         mark: {
             type: 'line',
@@ -62,17 +62,17 @@ function generate_vega_graph(graphTitle, priceData, divId) {
         },
         encoding: {
             y: {
-                field: 'price',
+                field: 'amount',
                 type: 'quantitative',
                 axis: { title: 'Price' }
             },
             x: {
-                field: 'transactionDateutc',
+                field: 'transactionDate',
                 type: "temporal",
                 axis: { title: 'Date' }
             },
             color: {
-                field: 'siteName',
+                field: 'name',
                 type: 'nominal',
             }
         }
@@ -87,7 +87,7 @@ function create_stats_table(priceData) {
     let stats = [];
     for (let i = 0; i < priceData.length; i++) {
         let prices = priceData[i].map(item => {
-            return item["price"]
+            return item["amount"]
         })
         let stat = { };
         stat["min"] = Math.min(...prices);
@@ -117,7 +117,7 @@ function create_stats_table(priceData) {
         let td2 = row.insertCell();
         let td3 = row.insertCell();
         let td4 = row.insertCell();
-        td1.appendChild(document.createTextNode(priceData[i][0].siteName))
+        td1.appendChild(document.createTextNode(priceData[i][0].name))
         td2.appendChild(document.createTextNode(stats[i]["min"]))
         td3.appendChild(document.createTextNode(stats[i]["max"]))
         td4.appendChild(document.createTextNode(stats[i]["mean"]))
@@ -206,8 +206,8 @@ var sites = new Bloodhound({
         transform: function (response) {
             return $.map(response.sites, function (site) {
                 return {
-                    name: site.siteName,
-                    id: site.siteId
+                    name: site.name,
+                    id: site.id
                 }
             });
         }

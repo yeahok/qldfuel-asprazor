@@ -21,13 +21,13 @@ function AddMarkers(baseUrl, fuelType) {
         let markers = []; 
 
         for (let site of data) {
-            let price = site.prices[0].price / 1000;
+            let price = site.prices[0].amount / 1000;
             var priceIcon = L.divIcon({ className: 'pricemarker', html: `${price}` });
-            let detailsUrl = `${window.location.origin}/Sites/Details/${site.siteId}`;
+            let detailsUrl = `${window.location.origin}/Sites/Details/${site.Id}`;
             let priceDate = site.prices[0].transactionDateutc;
 
-            let marker = L.marker([site.siteLatitude, site.siteLongitude], { icon: priceIcon })
-                .bindPopup(`${site.siteName}<br/>Price recorded on ${priceDate}<br/><a href=${detailsUrl}>More Details</a>`);
+            let marker = L.marker([site.latitude, site.longitude], { icon: priceIcon })
+                .bindPopup(`${site.name}<br/>Price recorded on ${priceDate}<br/><a href=${detailsUrl}>More Details</a>`);
             markers.push(marker);
             
         }
@@ -37,7 +37,7 @@ function AddMarkers(baseUrl, fuelType) {
 }
 
 //initialise
-AddMarkers(siteApiUrl, "PULP 98 RON");
+AddMarkers(siteApiUrl, "Premium Unleaded 98");
 
 //set up buttons to change map markers
 var btns = document.getElementsByClassName("fuel-type-btn")

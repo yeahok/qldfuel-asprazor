@@ -12,7 +12,7 @@
                 height: 500,
                 width: 'container',
                 data: {
-                    values: data.map(function (element) { element['price'] /= 1000; return element })
+                    values: data.map(function (element) { element['amount'] /= 1000; return element })
                 },
                 mark: {
                     type: 'point',
@@ -21,7 +21,7 @@
                 },
                 encoding: {
                     y: {
-                        field: 'price',
+                        field: 'amount',
                         type: 'quantitative',
                         axis: {
                             title: 'Price (AUD)',
@@ -30,7 +30,7 @@
                         scale: { domain: [1,2] }
                     },
                     x: {
-                        field: 'transactionDateutc',
+                        field: 'transactionDate',
                         type: "temporal",
                         axis: {
                             title: 'Date',

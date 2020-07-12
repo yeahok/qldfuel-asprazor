@@ -32,17 +32,17 @@
         <tr>
             <th>
                 <a asp-page="/Sites/index" asp-route-sortby="1" asp-route-search="@Model.Search" asp-route-brand="@Model.Brand" asp-route-perpage="@Model.PerPage">
-                    @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteName)
+                    @Html.DisplayNameFor(model => model.SitesObj.Sites.First().Name)
                 </a>
             </th>
             <th>
                 <a asp-page="/Sites/index" asp-route-sortby="2" asp-route-search="@Model.Search" asp-route-brand="@Model.Brand" asp-route-perpage="@Model.PerPage">
-                    @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteBrand)
+                    @Html.DisplayNameFor(model => model.SitesObj.Sites.First().Brand)
                 </a>
             </th>
             <th>
                 <a asp-page="/Sites/index" asp-route-sortby="3" asp-route-search="@Model.Search" asp-route-brand="@Model.Brand" asp-route-perpage="@Model.PerPage">
-                    @Html.DisplayNameFor(model => model.SitesObj.Sites.First().SiteSuburb)
+                    @Html.DisplayNameFor(model => model.SitesObj.Sites.First().RegionLevel1)
                 </a>
         </tr>
     </thead>
@@ -52,16 +52,16 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SiteName)
+                    @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SiteBrand)
+                    @Html.DisplayFor(modelItem => item.Brand)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SiteSuburb)
+                    @Html.DisplayFor(modelItem => item.RegionLevel1)
                 </td>
                 <td>
-                    <a asp-page="./Details" asp-route-id="@item.SiteId">Details</a>
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a>
                 </td>
             </tr>
         }

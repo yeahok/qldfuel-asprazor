@@ -77,7 +77,7 @@ namespace qldfuelanalyse.Pages.Sites
                 await response.Content.ReadAsStringAsync());
 
             response = await client.GetAsync(
-                string.Format("{0}api/sites/brands", FuelApiBaseUrl));
+                string.Format("{0}api/brands", FuelApiBaseUrl));
             var BrandsList = JsonConvert.DeserializeObject<List<string>>(
                 await response.Content.ReadAsStringAsync());
             Brands = new SelectList(BrandsList);
