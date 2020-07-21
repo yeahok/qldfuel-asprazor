@@ -23,7 +23,7 @@ namespace qldfuelanalyse.Pages.Sites
         static HttpClient client = new HttpClient();
         public SitesObj SitesObj { get; set; }
 
-        public SelectList Brands { get; set; }
+        public List<SelectListItem> Brands { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string PageNum { get; set; }
@@ -78,9 +78,13 @@ namespace qldfuelanalyse.Pages.Sites
 
             response = await client.GetAsync(
                 string.Format("{0}api/brands", FuelApiBaseUrl));
-            var BrandsList = JsonConvert.DeserializeObject<List<string>>(
+            var BrandsList = JsonConvert.DeserializeObject<List<Brand>>(
                 await response.Content.ReadAsStringAsync());
-            Brands = new SelectList(BrandsList);
+            Brands = BrandsList.Select(b => new SelectListItem
+            {
+                Value = b.Id.ToString(),
+                Text = b.Name
+            }).ToList();
 
             TotalPages = (int)Math.Ceiling((double)SitesObj.QueryInfo.RowCount / (double)PerPage);
             PageNumRange = CreatePageRange(int.Parse(PageNum), TotalPages);
