@@ -43,6 +43,9 @@ namespace qldfuelanalyse.Pages.Sites
         [BindProperty(SupportsGet = true)]
         public string Brand { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string PostCode { get; set; }
+
         public async Task OnGet()
         {
             if (string.IsNullOrEmpty(PageNum))
@@ -64,6 +67,11 @@ namespace qldfuelanalyse.Pages.Sites
             {
                 BrandQuery = string.Format("&brand={0}", Brand);
             }
+            string PostCodeQuery = "";
+            if (!string.IsNullOrEmpty(PostCode))
+            {
+                BrandQuery = string.Format("&postcode={0}", PostCode);
+            }
 
             if (PerPage < 10)
             {
@@ -72,7 +80,7 @@ namespace qldfuelanalyse.Pages.Sites
             string PerPageQuery = string.Format("&limit={0}", PerPage);
 
             HttpResponseMessage response = await client.GetAsync(
-                string.Format("{0}api/sites/?page={1}{2}{3}{4}{5}", FuelApiBaseUrl, PageNum, searchQuery, sortByQuery, BrandQuery, PerPageQuery));
+                string.Format("{0}api/sites/?page={1}{2}{3}{4}{5}{6}", FuelApiBaseUrl, PageNum, searchQuery, sortByQuery, BrandQuery, PerPageQuery, PostCodeQuery));
             SitesObj = JsonConvert.DeserializeObject<SitesObj> (
                 await response.Content.ReadAsStringAsync());
 
