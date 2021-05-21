@@ -70,7 +70,7 @@ namespace qldfuelanalyse.Pages.Sites
             string PostCodeQuery = "";
             if (!string.IsNullOrEmpty(PostCode))
             {
-                BrandQuery = string.Format("&postcode={0}", PostCode);
+                PostCodeQuery = string.Format("&postcode={0}", PostCode);
             }
 
             if (PerPage < 10)
