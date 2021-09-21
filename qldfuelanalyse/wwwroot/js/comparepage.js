@@ -46,7 +46,7 @@ function validate_input(inputNameClass) {
 
 function generate_vega_graph(graphTitle, priceData, divId) {
     var vlSpec = {
-        $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
+        $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
         title: graphTitle,
         height: 500,
         width: 'container',

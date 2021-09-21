@@ -7,7 +7,7 @@
         response => response.json()
     ).then(function (data) {
         var vlSpec = {
-            $schema: 'https://vega.github.io/schema/vega-lite/v4.json',
+            $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
             title: graphTitle,
             height: 500,
             width: 'container',
