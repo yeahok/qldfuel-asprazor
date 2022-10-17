@@ -27,7 +27,7 @@
                             title: 'Price (AUD)',
                             format: '.2f'
                         },
-                        scale: { domain: [1,2] }
+                        scale: { domain: [0,3] }
                     },
                     x: {
                         field: 'transactionDate',
